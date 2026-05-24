@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snehal Thombare | ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --cyan-dim: #00b8c4;
+    --green: #39ff14;
+    --purple: #b44fff;
+    --bg: #030912;
+    --bg2: #060f1e;
+    --bg3: #0a1628;
+    --text: #c8e6ff;
+    --text-dim: #5a8aa8;
+    --border: rgba(0,245,255,0.15);
+    --border-bright: rgba(0,245,255,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background: rgba(3,9,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Orbitron', monospace; font-size: 1.1rem; color: var(--cyan); letter-spacing: 3px; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-family: 'Share Tech Mono', monospace; color: var(--text-dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--cyan); }
+  #hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 4rem; z-index: 1; }
+  .hero-content { max-width: 750px; }
+  .hero-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 4px; border: 1px solid var(--border-bright); display: inline-block; padding: 4px 16px; margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1; color: #fff; margin-bottom: 0.5rem; }
+  .hero-name span { color: var(--cyan); }
+  .hero-role { font-family: 'Share Tech Mono', monospace; font-size: 1rem; color: var(--cyan-dim); letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .hero-desc { font-size: 1.1rem; color: var(--text-dim); max-width: 550px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-desc strong { color: #39ff14; font-weight: 600; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Orbitron', monospace; font-size: 0.75rem; letter-spacing: 2px; padding: 12px 28px; background: var(--cyan); color: #000; border: none; cursor: pointer; font-weight: 700; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--green); transform: translateY(-2px); }
+  .btn-ghost { font-family: 'Orbitron', monospace; font-size: 0.75rem; letter-spacing: 2px; padding: 12px 28px; background: transparent; color: var(--cyan); border: 1px solid var(--border-bright); cursor: pointer; font-weight: 700; transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { background: rgba(0,245,255,0.08); transform: translateY(-2px); }
+  .hero-stats { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 1.5rem; }
+  .stat-item { text-align: right; border-right: 2px solid var(--cyan); padding-right: 1rem; }
+  .stat-num { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; color: var(--cyan); display: block; }
+  .stat-label { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; }
+  section { position: relative; z-index: 1; padding: 6rem 4rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+  .section-num { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 2px; }
+  .section-title { font-family: 'Orbitron', monospace; font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: 2px; }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,245,255,0.4), transparent); }
+  #skills { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .skill-card { background: var(--bg); border: 1px solid var(--border); padding: 1.25rem; transition: border-color 0.3s, transform 0.2s; position: relative; overflow: hidden; }
+  .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--cyan); transform: scaleY(0); transition: transform 0.3s; transform-origin: bottom; }
+  .skill-card:hover::before { transform: scaleY(1); }
+  .skill-card:hover { border-color: var(--border-bright); transform: translateX(4px); }
+  .skill-icon { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--cyan); letter-spacing: 2px; margin-bottom: 0.5rem; }
+  .skill-name { font-family: 'Orbitron', monospace; font-size: 0.9rem; color: #fff; margin-bottom: 0.75rem; }
+  .skill-bar { height: 2px; background: rgba(0,245,255,0.1); position: relative; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, #00f5ff, #39ff14); transition: width 1s ease; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.75rem; }
+  .tag { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; padding: 2px 8px; border: 1px solid rgba(0,245,255,0.2); color: var(--text-dim); letter-spacing: 1px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+  .project-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
+  .project-id { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--cyan-dim); letter-spacing: 3px; margin-bottom: 0.75rem; }
+  .project-title { font-family: 'Orbitron', monospace; font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; }
+  .project-desc { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1.25rem; line-height: 1.6; font-weight: 300; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+  .stack-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; padding: 3px 10px; background: rgba(0,245,255,0.06); border: 1px solid rgba(0,245,255,0.2); color: var(--cyan); letter-spacing: 1px; }
+  .project-links { display: flex; gap: 0.75rem; }
+  .proj-link { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--cyan); text-decoration: none; letter-spacing: 1px; border-bottom: 1px solid rgba(0,245,255,0.4); padding-bottom: 2px; transition: color 0.2s; }
+  .proj-link:hover { color: #39ff14; border-color: #39ff14; }
+  #achievements { background: var(--bg2); }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+  .ach-card { background: var(--bg); border: 1px solid var(--border); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: all 0.3s; }
+  .ach-card:hover { border-color: var(--border-bright); }
+  .ach-icon-wrap { width: 44px; height: 44px; border: 1px solid rgba(0,245,255,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Orbitron', monospace; font-size: 1rem; color: var(--cyan); }
+  .ach-title { font-family: 'Orbitron', monospace; font-size: 0.85rem; color: #fff; margin-bottom: 0.3rem; }
+  .ach-desc { font-size: 0.85rem; color: var(--text-dim); font-weight: 300; }
+  .edu-block { border-left: 2px solid rgba(0,245,255,0.4); padding-left: 2rem; position: relative; }
+  .edu-dot { width: 10px; height: 10px; background: var(--cyan); position: absolute; left: -6px; top: 6px; }
+  .edu-year { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--cyan); letter-spacing: 2px; margin-bottom: 0.3rem; }
+  .edu-degree { font-family: 'Orbitron', monospace; font-size: 1.1rem; color: #fff; margin-bottom: 0.3rem; }
+  .edu-school { font-size: 0.9rem; color: var(--text-dim); font-weight: 300; }
+  #contact { text-align: center; padding: 6rem 4rem; }
+  .contact-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 4px; margin-bottom: 1rem; }
+  .contact-title { font-family: 'Orbitron', monospace; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-link { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 2px; padding: 12px 24px; border: 1px solid rgba(0,245,255,0.4); color: var(--cyan); text-decoration: none; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+  .contact-link:hover { background: rgba(0,245,255,0.08); transform: translateY(-2px); }
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; }
+  .footer-logo { font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--cyan); letter-spacing: 3px; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero-stats { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">S.THOMBARE</div>
+  <div class="nav-links">
+    <a href="#skills">SKILLS</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#achievements">AWARDS</a>
+    <a href="#contact">CONTACT</a>
+  </div>
+</nav>
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">&gt; INITIALIZING PROFILE</div>
+    <h1 class="hero-name">SNEHAL<br><span>THOMBARE</span></h1>
+    <p class="hero-role">DATA SCIENTIST &nbsp;/&nbsp; ML ENGINEER &nbsp;/&nbsp; CP</p>
+    <p class="hero-desc">CSE student with a passion for <strong>competitive programming</strong> and machine learning. Targeting <strong>Optiver</strong> — where algorithms meet trading at scale.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">VIEW PROJECTS</a>
+      <a href="#contact" class="btn-ghost">CONTACT ME</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-num">1600+</span><span class="stat-label">CODEFORCES RATING</span></div>
+    <div class="stat-item"><span class="stat-num">5★</span><span class="stat-label">CODECHEF</span></div>
+    <div class="stat-item"><span class="stat-num">10+</span><span class="stat-label">ML PROJECTS</span></div>
+  </div>
+</section>
+<section id="skills">
+  <div class="section-header"><span class="section-num">01 //</span><h2 class="section-title">SKILL MATRIX</h2><div class="section-line"></div></div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">LANG</div><div class="skill-name">PYTHON</div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div><div class="skill-tags"><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">SciPy</span></div></div>
+    <div class="skill-card"><div class="skill-icon">ML/AI</div><div class="skill-name">MACHINE LEARNING</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><div class="skill-tags"><span class="tag">Sklearn</span><span class="tag">TensorFlow</span><span class="tag">PyTorch</span></div></div>
+    <div class="skill-card"><div class="skill-icon">ALGO</div><div class="skill-name">COMP. PROG.</div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div><div class="skill-tags"><span class="tag">C++</span><span class="tag">DSA</span><span class="tag">Graphs</span><span class="tag">DP</span></div></div>
+    <div class="skill-card"><div class="skill-icon">QUANT</div><div class="skill-name">QUANT SKILLS</div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div><div class="skill-tags"><span class="tag">Stats</span><span class="tag">Probability</span><span class="tag">LinAlg</span></div></div>
+    <div class="skill-card"><div class="skill-icon">DATA</div><div class="skill-name">DATA ENGINEERING</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div><div class="skill-tags"><span class="tag">SQL</span><span class="tag">Spark</span><span class="tag">ETL</span></div></div>
+    <div class="skill-card"><div class="skill-icon">VIZ</div><div class="skill-name">DATA VISUALIZATION</div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div><div class="skill-tags"><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Plotly</span></div></div>
+  </div>
+</section>
+<section id="projects">
+  <div class="section-header"><span class="section-num">02 //</span><h2 class="section-title">PROJECTS</h2><div class="section-line"></div></div>
+  <div class="projects-grid">
+    <div class="project-card"><div class="project-id">PRJ-001 // ML</div><div class="project-title">MARKET PREDICTOR</div><p class="project-desc">Real-time stock market prediction using LSTM neural networks. Processes tick-by-tick data with sub-millisecond latency for HFT-style signal generation.</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">TensorFlow</span><span class="stack-tag">Pandas</span><span class="stack-tag">WebSockets</span></div><div class="project-links"><a href="https://github.com/snehaltombare" class="proj-link">[ GITHUB ]</a><a href="#" class="proj-link">[ DEMO ]</a></div></div>
+    <div class="project-card"><div class="project-id">PRJ-002 // CP</div><div class="project-title">CP ANALYZER</div><p class="project-desc">ML-powered competitive programming performance analyzer. Identifies weak spots in problem-solving patterns using Codeforces API and custom NLP pipeline.</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">Sklearn</span><span class="stack-tag">API</span><span class="stack-tag">NLP</span></div><div class="project-links"><a href="https://github.com/snehaltombare" class="proj-link">[ GITHUB ]</a></div></div>
+    <div class="project-card"><div class="project-id">PRJ-003 // DATA</div><div class="project-title">OPTIVER RESEARCH</div><p class="project-desc">Analysis and ML solution for Optiver's Kaggle challenge — Trading at the Close. Ranked order book modeling using XGBoost and feature engineering on financial data.</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">XGBoost</span><span class="stack-tag">Feature Eng.</span><span class="stack-tag">Kaggle</span></div><div class="project-links"><a href="https://github.com/snehaltombare" class="proj-link">[ GITHUB ]</a><a href="#" class="proj-link">[ KAGGLE ]</a></div></div>
+  </div>
+</section>
+<section id="achievements">
+  <div class="section-header"><span class="section-num">03 //</span><h2 class="section-title">ACHIEVEMENTS</h2><div class="section-line"></div></div>
+  <div class="ach-grid">
+    <div class="ach-card"><div class="ach-icon-wrap">CF</div><div class="ach-text"><div class="ach-title">CODEFORCES</div><div class="ach-desc">Specialist / Expert — 1600+ Rating</div></div></div>
+    <div class="ach-card"><div class="ach-icon-wrap">CC</div><div class="ach-text"><div class="ach-title">CODECHEF</div><div class="ach-desc">5 Star rated coder — consistent performance</div></div></div>
+    <div class="ach-card"><div class="ach-icon-wrap">KC</div><div class="ach-text"><div class="ach-title">KAGGLE</div><div class="ach-desc">Competitions participant — ML challenges</div></div></div>
+    <div class="ach-card"><div class="ach-icon-wrap">OV</div><div class="ach-text"><div class="ach-title">TARGET: OPTIVER</div><div class="ach-desc">Quant trading & HFT research focus</div></div></div>
+  </div>
+</section>
+<section id="education">
+  <div class="section-header"><span class="section-num">04 //</span><h2 class="section-title">EDUCATION</h2><div class="section-line"></div></div>
+  <div class="edu-block">
+    <div class="edu-dot"></div>
+    <div class="edu-year">2022 — 2026</div>
+    <div class="edu-degree">B.E. COMPUTER SCIENCE & ENGINEERING</div>
+    <div class="edu-school">Your College Name, Maharashtra</div>
+  </div>
+</section>
+<section id="contact">
+  <p class="contact-sub">&gt; ESTABLISH CONNECTION</p>
+  <h2 class="contact-title">LET'S BUILD<br>SOMETHING GREAT</h2>
+  <p style="color: var(--text-dim); font-size: 1rem; max-width: 500px; margin: 0 auto; font-weight: 300;">Open to internships, research roles, and quantitative finance opportunities. Let's connect.</p>
+  <div class="contact-links">
+    <a href="mailto:snehal@email.com" class="contact-link">[ EMAIL ]</a>
+    <a href="https://github.com/snehaltombare" class="contact-link">[ GITHUB ]</a>
+    <a href="https://linkedin.com/in/snehaltombare" class="contact-link">[ LINKEDIN ]</a>
+    <a href="https://codeforces.com" class="contact-link">[ CODEFORCES ]</a>
+  </div>
+</section>
+<footer>
+  <p>&copy; 2025 SNEHAL THOMBARE — ALL SYSTEMS OPERATIONAL</p>
+  <div class="footer-logo">S.T_</div>
+</footer>
+</body>
+</html>
